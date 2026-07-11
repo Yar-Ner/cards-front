@@ -17,7 +17,7 @@ export class App implements OnInit { // Реализуем OnInit для авт�
   cards: any[] = []; // Изначально массив пустой
   protected readonly title = signal('cards');
   
-  private apiUrl = 'http://your-server-ip/api/cards';
+  private apiUrl = 'https://cards-hfn3.onrender.com/api/cards';
 
   // Внедряем HttpClient через конструктор
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
