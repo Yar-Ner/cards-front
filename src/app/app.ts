@@ -131,12 +131,16 @@ logout() {
   // 2. ОБНОВЛЕНИЕ JSON НА СЕРВЕРЕ
   // Этот метод мы будем вызывать каждый раз, когда массив cards изменился (удалили или добавили элемент)
 syncWithServer() {
-  // Тоже проверяем авторизацию перед отправкой
+  // Проверяем авторизацию перед отправкой
   if (!this.currentUser || !this.currentUser.id) return;
 
-  this.http.post(`${this.apiUrl}?userId=${this.currentUser.id}`, this.cards).subscribe({
+  // Добавляем 'cards' в путь запроса, чтобы он шел на /api/cards
+  this.http.post(`${this.apiUrl}cards?userId=${this.currentUser.id}`, this.cards).subscribe({
     next: () => console.log('Синхронизировано с сервером'),
-    error: (err) => console.error('Ошибка синхронизации:', err)
+    error: (err) => {
+      console.error('Ошибка синхронизации:', err);
+      alert('Не удалось сохранить изменения на сервере!');
+    }
   });
 }
 
